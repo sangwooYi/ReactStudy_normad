@@ -37,6 +37,9 @@ HTML, CSS, JS로만 코드를 작성시에, 단순히 버튼 클릭수를 측정
 2. 선택한 태그에 대한 이벤트 리스너 설정
 3. 콜백함수를 구현. 선택한 태그에 대해 조작할 데이터 설정
 4. HTML 태그 업데이트 (.innerText 나 속성을 변경해주는 등..)
+
+`기존 방법`
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -57,9 +60,44 @@ HTML, CSS, JS로만 코드를 작성시에, 단순히 버튼 클릭수를 측정
       span.innerText = `Total Click: ${counter}`
     }
 
-
     button.addEventListener("click", handleClick);
   </script>
 </body>
 </html>
 ```
+
+
+
+`React.JS` (JSX 사용)
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+  const root = document.getElementById("root");
+  function App() {
+    const [ counter, setCounter ] = React.useState(0);
+    const onClick = () => {
+      // modifier에 전달한 값으로 자동으로 re-render 해준다.
+      setCounter(counter + 1);
+      console.log(counter);
+    }
+    return (
+      <div>
+        <h3>Total Clicks: { counter }</h3>
+        <button onClick={ onClick }>Click Me</button>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(root).render(<App />)
+</script>
+```
+

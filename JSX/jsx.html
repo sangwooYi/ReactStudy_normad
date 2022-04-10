@@ -36,12 +36,12 @@
   // JSX 문법! 포함시킬 태그를 위에처럼 
   // 1.arrow function으로 선언 그 후 2.Container에 아래처럼 태그로 선언
   // 대신 () => {} 가 아닌 () => () 으로 작성한다.
-  const Container = (
+  const Container = () => (
     <div>
       <Title />
       <Button />
     </div>
   );
-  ReactDOM.createRoot(root).render(Container);
+  ReactDOM.createRoot(root).render(<Container />);
 </script>
 </html>
