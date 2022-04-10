@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 가장 root가 되는 div태그는 만들어야한다. -->
+  <div id="root"></div>
+</body>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+  const root = document.getElementById("root");
+  // 이것이 JSX 문법
+  const Title = () => 
+    (
+      <h3 
+      id="title" onMouseEnter={() => { console.log("엔터엔터") }}
+      >Hello I'm a title
+      </h3>
+    );
+  
+  const Button = () => 
+    (
+      <button 
+        style={{ backgroundColor: "tomato" }}
+        onClick={() => { console.log("클릭클릭") }}>
+        Click Me
+      </button>
+    );
+  
+  // JSX 문법! 포함시킬 태그를 위에처럼 
+  // 1.arrow function으로 선언 그 후 2.Container에 아래처럼 태그로 선언
+  // 대신 () => {} 가 아닌 () => () 으로 작성한다.
+  const Container = (
+    <div>
+      <Title />
+      <Button />
+    </div>
+  );
+  ReactDOM.createRoot(root).render(Container);
+</script>
+</html>
