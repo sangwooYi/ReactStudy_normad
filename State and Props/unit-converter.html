@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+  const root = document.getElementById("root");
+  function App() {
+    // minutes라는 값을 modifier를 통해 바꾸는 개념 (세터인것) 
+    //  useState() 안에는 일반적으로 디폴트 값을 써준다. (초기화)
+    const [amount, setAmount] = React.useState(0);
+    const [mass, setMass] = React.useState(0);
+    const [massFlip, setMassFlip] = React.useState(false);
+    const [flipped, setFlipped] = React.useState(false);
+    // 이부분은 완전 JS이다 ! Vue에서 v-bind 개념을 원래는 이렇게 구현하는것!
+    const onChange = (event) => {
+      setAmount(event.target.value);
+    };
+    const reset = () => {
+      setAmount(0);
+    };
+    const onFlip = () => {  
+      reset();
+      setFlipped(!flipped);
+    };
+    const onMassChange = (event) => {
+      setMass(event.target.value);
+    };
+    const massReset = () => {
+      setMass(0);
+    };
+    const onMassFlip = () => {
+      massReset();
+      setMassFlip(!massFlip);
+    };
+    // class => className  for => htmlFor로 써야한다 
+    // why? => JS에 이미 class, for라는 문법이 존재하기때문!
+    return (
+      <div>
+        <h1>Unit Converter</h1>
+        <div>
+          <h4>Hour - Minute</h4>
+          <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input 
+              id="minutes" 
+              value={flipped ? amount*60 : amount} 
+              onChange={onChange}
+              placeholder="Minutes" 
+              disabled={flipped === true}
+              type="number" />
+          </div> 
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input 
+              id="hours" 
+              // 삼항연산자 사용
+              value={flipped ? amount : Math.round(amount/60)}
+              onChange={onChange}
+              placeholder="Hours"
+              disabled={flipped === false}
+              type="number" />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>Flip</button>
+        </div>
+        <div>
+          <h4>Kg - lbs</h4>
+          <div>
+            <label htmlFor="kg">Kg</label>
+            <input 
+              type="number" 
+              id="kg"
+              value={massFlip ? mass/2.2 : mass}
+              onChange={onMassChange}
+              placeholder="kg"
+              disabled={massFlip}/>
+          </div>
+          <div>
+            <label htmlFor="lbs">lbs</label>
+            <input 
+              type="number" 
+              id="lbs"
+              value={massFlip ? mass : mass*2.2}
+              onChange={onMassChange}
+              placeholder="lbs"
+              disabled={!massFlip}/>
+          </div>
+          <button onClick={massReset}>Reset</button>
+          <button onClick={onMassFlip}>{massFlip ? "Go back" : "Flip!"}</button>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(root).render(<App />)
+</script>
+</html>

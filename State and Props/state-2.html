@@ -19,7 +19,10 @@
     const [ counter, setCounter ] = React.useState(0);
     const onClick = () => {
       // modifier에 전달한 값으로 자동으로 re-render 해준다.
-      setCounter(counter + 1);
+      // 아래와 같은 방법이 그냥 setCounter(counter + 1) 이방법보다 보다 안정적!
+      setCounter((current) => {
+        current + 1
+      });
     }
     console.log(counter);
     return (
